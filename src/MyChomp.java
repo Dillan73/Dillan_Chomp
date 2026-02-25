@@ -37,8 +37,6 @@ public class MyChomp {
     String boardMovesString(int c0, int c1, int c2) {
         String boardMoves = "From the position " + getBoard(c0, c1, c2) + ", this possible boards are: ";
 
-        boardMoves += getBoard(c0, c1, c2);
-        boardMoves += ": ";
         String leftMoves = "";
         for(int i0 = 0; i0 < c0; i0++){
             if(i0 != 0){
