@@ -35,27 +35,26 @@ public class MyChomp {
     }
 
     String boardMovesString(int c0, int c1, int c2) {
-        String boardMoves = "These are the possible boards you can get to from the position ";
+        String boardMoves = "From the position " + getBoard(c0, c1, c2) + ", this possible boards are: ";
 
         boardMoves += getBoard(c0, c1, c2);
         boardMoves += ": ";
         String leftMoves = "";
-        for(int i0 = c0; i0 >= 0; i0--){
+        for(int i0 = 0; i0 < c0; i0++){
             if(i0 != 0){
                 leftMoves += ", ";
             }
             leftMoves += getBoard(i0, Math.min(i0, c1), Math.min(i0, c2));
-
         }
 
         String middleMoves = "";
-        for(int i1 = c1; i1 >= 0; i1--){
+        for(int i1 = 0; i1 < c1; i1++){
             middleMoves += ", ";
             middleMoves += getBoard(c0, i1, Math.min(i1, c2));
         }
 
         String rightMoves = "";
-        for(int i2 = c2; i2 >= 0; i2--){
+        for(int i2 = 0; i2 < c2; i2++){
             rightMoves += ", ";
             rightMoves += getBoard(c0, c1, i2);
         }
