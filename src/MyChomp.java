@@ -35,30 +35,55 @@ public class MyChomp {
     }
 
     String boardMovesString(int c0, int c1, int c2) {
+        int[][] possibles = getBoardPossibleMoves(c0,c1,c2);
         String boardMoves = "From the position " + getBoard(c0, c1, c2) + ", this possible boards are: ";
+        boolean win = false;
+        for(int i = 0; i < c0+c1+c2-1; i++){
+            int i0 = possibles[i][0];
+            int i1 = possibles[i][1];
+            int i2 = possibles[i][2];
 
-        String leftMoves = "";
-        for(int i0 = 0; i0 < c0; i0++){
-            if(i0 != 0){
-                leftMoves += ", ";
+            boardMoves += getBoard(i0,i1,i2);
+
+            if(i0 == 1 && i1 == 0 && i2 == 0){
+                win = true;
             }
-            leftMoves += getBoard(i0, Math.min(i0, c1), Math.min(i0, c2));
+            if(i != c0+c1+c2-2){
+                boardMoves += ", ";
+            }else{
+                boardMoves += ".";
+                if(win){
+                    boardMoves += " This is a winning board!";
+                }else{
+                    boardMoves += " This is a losing board!";
+                }
+            }
         }
-
-        String middleMoves = "";
-        for(int i1 = 0; i1 < c1; i1++){
-            middleMoves += ", ";
-            middleMoves += getBoard(c0, i1, Math.min(i1, c2));
-        }
-
-        String rightMoves = "";
-        for(int i2 = 0; i2 < c2; i2++){
-            rightMoves += ", ";
-            rightMoves += getBoard(c0, c1, i2);
-        }
-        boardMoves += leftMoves + middleMoves + rightMoves + ".";
-
         return boardMoves;
+    }
+
+    int[][] getBoardPossibleMoves(int c0, int c1, int c2) {
+        int[][] possibles = new int[c0 + c1 + c2-1][3];
+        int index = 0;
+        for (int i0 = 1; i0 <c0; i0++) {
+            possibles[index][0] = i0;
+            possibles[index][1] = Math.min(i0, c1);
+            possibles[index][2] = Math.min(i0, c2);
+            index++;
+        }
+        for (int i1 = 0; i1 < c1; i1++) {
+            possibles[index][0] = c0;
+            possibles[index][1] = i1;
+            possibles[index][2] = Math.min(i1, c2);
+            index++;
+        }
+        for (int i2 = 0; i2 < c2; i2++) {
+            possibles[index][0] = c0;
+            possibles[index][1] = c1;
+            possibles[index][2] = i2;
+            index++;
+        }
+        return possibles;
     }
 
     void printAllBoards(){
@@ -74,30 +99,6 @@ public class MyChomp {
         }
         boardsString = boardsString.substring(0, boardsString.length()-3);
         System.out.println(boardsString);
-    }
-
-    int[][] getBoardPossibleMoves(int c0, int c1, int c2) {
-        int[][] possibles = new int[c0 + c1 + c2][3];
-        int index = 0;
-        for (int i0 = c0; i0 >= 1; i0--) {
-            possibles[index][0] = i0;
-            possibles[index][1] = Math.min(i0, c1);
-            possibles[index][2] = Math.min(i0, c2);
-            index++;
-        }
-        for (int i1 = c1; i1 >= 0; i1--) {
-            possibles[index][0] = c0;
-            possibles[index][1] = i1;
-            possibles[index][2] = Math.min(i1, c2);
-            index++;
-        }
-        for (int i2 = c2; i2 >= 0; i2--) {
-            possibles[index][0] = c0;
-            possibles[index][1] = c1;
-            possibles[index][2] = i2;
-            index++;
-        }
-        return possibles;
     }
 
     void makeAllBoards(){
