@@ -39,12 +39,16 @@ public class MyChomp {
             if(arr.length != potential.length){
                 continue;
             }
+            boolean failed = false;
             for(int i = 0; i < arr.length; i++){
                 if(arr[i] != potential[i]){
-                    continue;
+                    failed = true;
+                    break;
                 }
             }
-            return true;
+            if(!failed){
+                return true;
+            }
         }
         return false;
     }
@@ -80,9 +84,13 @@ public class MyChomp {
             int[] curr = {i0, Math.min(i0, c1), Math.min(i0, c2)};
             String result = "";
             if(contained(loseBoards, curr)){
-                winBoards.add(curr);
-                result = "With the initial board " + getBoard(c0, c1, c2) + ", you can win by clicking: " + "(0," + curr[0] +")!";
+                int[] state = {c0, c1, c2};
+                winBoards.add(state);
+                result = "The board " + getBoard(c0, c1, c2) + " is a winning board. A move to win is: " + "(0, " + i0 +")!";
             }else{
+                if(!contained(winBoards, curr)){
+                    System.out.println("smth wrong in i0 check");
+                }
                 result = "nah";
             }
             if (result.equals("nah")) {
@@ -99,8 +107,9 @@ public class MyChomp {
             int[] curr = {c0, i1, Math.min(i1, c2)};
             String result = "";
             if(contained(loseBoards, curr)){
-                winBoards.add(curr);
-                result = "With the initial board " + getBoard(c0, c1, c2) + ", you can win by clicking: " + "(1," + i1 +")!";
+                int[] state = {c0, c1, c2};
+                winBoards.add(state);
+                result = "The board " + getBoard(c0, c1, c2) + " is a winning board. A move to win is: " + "(1, " + i1 +")!";
             }else{
                 result = "nah";
             }
@@ -118,8 +127,9 @@ public class MyChomp {
             int[] curr = {c0, c1, i2};
             String result = "";
             if(contained(loseBoards, curr)){
-                winBoards.add(curr);
-                result = "With the initial board " + getBoard(c0, c1, c2) + ", you can win by clicking: " + "(2," + i2 +")!";
+                int[] state = {c0, c1, c2};
+                winBoards.add(state);
+                result = "The board " + getBoard(c0, c1, c2) + " is a winning board. A move to win is: " + "(2, " + i2 +")!";
             }else{
                 result = "nah";
             }
