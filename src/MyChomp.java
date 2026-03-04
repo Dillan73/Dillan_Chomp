@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MyChomp {
@@ -6,6 +7,8 @@ public class MyChomp {
     public static void main(String[] args) {
         MyChomp print3x3 = new MyChomp(3);
     }
+    ArrayList<int[]> loseBoards = new ArrayList<>();
+    ArrayList<int[]> winBoards = new ArrayList<>();
 
     //print all the 3x3 boards w/o souting 19 times
 
@@ -14,76 +17,119 @@ public class MyChomp {
 
     public MyChomp(int size){
         this.size = size;
+        int[] base = {1,0,0};
+        loseBoards.add(base);
+
         //make the 2d array of 19 boards
         makeAllBoards();
 
         //sout all the boards in Bradford notation
         printAllBoards();
 
+        //for each board, sout either losing board or the move to win
+        printAllBestMoves();
+
+
         //for each board, sout the possible moves in Bradford notation
-        printAllPossibleMoves();
+//        printAllPossibleMoves();
     }
 
-    void printAllPossibleMoves(){
+    boolean contained(ArrayList<int[]> existing, int[] potential){
+        for(int[] arr : existing){
+            if(arr.length != potential.length){
+                continue;
+            }
+            for(int i = 0; i < arr.length; i++){
+                if(arr[i] != potential[i]){
+                    continue;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    void printAllBestMoves(){
         for(int index = 0; index < 19; index++){
             int c0 = allBoards[index][0];
             int c1 = allBoards[index][1];
             int c2 = allBoards[index][2];
-            String thisBoardMoves = boardMovesString(c0, c1, c2);
-            System.out.println(thisBoardMoves);
+            String result = i0possibleMoves(c0, c1, c2);
+            if(!result.equals("nah")) {
+                System.out.println(result);
+                continue;
+            }
+            result = i1possibleMoves(c0, c1, c2);
+            if(!result.equals("nah")) {
+                System.out.println(result);
+                continue;
+            }
+            result = i2possibleMoves(c0, c1, c2);
+            if(!result.equals("nah")) {
+                System.out.println(result);
+                continue;
+            }
+            System.out.println("The board " + getBoard(c0, c1, c2) + " is a losing board.");
+            int[] thisLosingBoard = {c0, c1, c2};
+            loseBoards.add(thisLosingBoard);
         }
     }
 
-    String boardMovesString(int c0, int c1, int c2) {
-        int[][] possibles = getBoardPossibleMoves(c0,c1,c2);
-        String boardMoves = "From the position " + getBoard(c0, c1, c2) + ", this possible boards are: ";
-        boolean win = false;
-        for(int i = 0; i < c0+c1+c2-1; i++){
-            int i0 = possibles[i][0];
-            int i1 = possibles[i][1];
-            int i2 = possibles[i][2];
-
-            boardMoves += getBoard(i0,i1,i2);
-
-            if(i0 == 1 && i1 == 0 && i2 == 0){
-                win = true;
-            }
-            if(i != c0+c1+c2-2){
-                boardMoves += ", ";
+    String i0possibleMoves(int c0, int c1, int c2) {
+        for (int i0 = 1; i0 < c0; i0++) {
+            int[] curr = {i0, Math.min(i0, c1), Math.min(i0, c2)};
+            String result = "";
+            if(contained(loseBoards, curr)){
+                winBoards.add(curr);
+                result = "With the initial board " + getBoard(c0, c1, c2) + ", you can win by clicking: " + "(0," + curr[0] +")!";
             }else{
-                boardMoves += ".";
-                if(win){
-                    boardMoves += " This is a winning board!";
-                }else{
-                    boardMoves += " This is a losing board!";
-                }
+                result = "nah";
+            }
+            if (result.equals("nah")) {
+                continue;
+            } else {
+                return result;
             }
         }
-        return boardMoves;
+        return "nah";
     }
 
-    int[][] getBoardPossibleMoves(int c0, int c1, int c2) {
-        int[][] possibles = new int[c0 + c1 + c2-1][3];
-        int index = 0;
-        for (int i0 = 1; i0 <c0; i0++) {
-            possibles[index][0] = i0;
-            possibles[index][1] = Math.min(i0, c1);
-            possibles[index][2] = Math.min(i0, c2);
-            index++;
-        }
+    String i1possibleMoves(int c0, int c1, int c2) {
         for (int i1 = 0; i1 < c1; i1++) {
-            possibles[index][0] = c0;
-            possibles[index][1] = i1;
-            possibles[index][2] = Math.min(i1, c2);
-            index++;
+            int[] curr = {c0, i1, Math.min(i1, c2)};
+            String result = "";
+            if(contained(loseBoards, curr)){
+                winBoards.add(curr);
+                result = "With the initial board " + getBoard(c0, c1, c2) + ", you can win by clicking: " + "(1," + i1 +")!";
+            }else{
+                result = "nah";
+            }
+            if (result.equals("nah")) {
+                continue;
+            } else {
+                return result;
+            }
         }
+        return "nah";
+    }
+
+    String i2possibleMoves(int c0, int c1, int c2) {
         for (int i2 = 0; i2 < c2; i2++) {
-            possibles[index][0] = c0;
-            possibles[index][1] = c1;
-            possibles[index][2] = i2;
-            index++;
+            int[] curr = {c0, c1, i2};
+            String result = "";
+            if(contained(loseBoards, curr)){
+                winBoards.add(curr);
+                result = "With the initial board " + getBoard(c0, c1, c2) + ", you can win by clicking: " + "(2," + i2 +")!";
+            }else{
+                result = "nah";
+            }
+            if (result.equals("nah")) {
+                continue;
+            } else {
+                return result;
+            }
         }
-        return possibles;
+        return "nah";
     }
 
     void printAllBoards(){
@@ -91,10 +137,10 @@ public class MyChomp {
         for(int row = 0; row < 19; row++) {
             int curr=row+1;
             String thisBoard = curr + ": ";
-            int c0 = allBoards[row][0];
-            int c1 = allBoards[row][1];
-            int c2 = allBoards[row][2];
-            thisBoard += getBoard(c0, c1, c2);
+//            int c0 = allBoards[row][0];
+//            int c1 = allBoards[row][1];
+//            int c2 = allBoards[row][2];
+            thisBoard += getBoard(row);
             boardsString = boardsString + thisBoard + " | ";
         }
         boardsString = boardsString.substring(0, boardsString.length()-3);
@@ -107,9 +153,8 @@ public class MyChomp {
         for(int c0 = 1; c0 <= size; c0++){
             for(int c1 = 0; c1 <= c0; c1++){
                 for(int c2 = 0; c2 <= c1; c2++){
-                    allBoards[index][0] = c0;
-                    allBoards[index][1] = c1;
-                    allBoards[index][2] = c2;
+                    int[] curr = {c0, c1, c2};
+                    allBoards[index] = curr;
                     index++;
                 }
             }
@@ -126,22 +171,7 @@ public class MyChomp {
     String getBoard(int c0, int c1, int c2){
         return "(" + c0 + ", " + c1 + ", " + c2 + ")";
     }
-
-    String DillanGetAll3x3Boards(){
-        String allBoards = "This is printing all the possible boards in a 3x3 board in the form (# tiles gone in bottom row, # tiles gone in middle row, # tiles gon in top row): ";
-        int curr = 1;
-        for(int i0 = 0; i0 <= size-1; i0++){
-            for(int i1 = i0; i1 <= size; i1++){
-                for(int i2 = i1; i2 <= size; i2++){
-                    String thisBoard = curr + ": (" + i0 + ", " + i1 + ", " + i2 + ")   ";
-                    allBoards = allBoards + thisBoard;
-                    curr++;
-                }
-            }
-        }
-        return allBoards;
-    }
-
+                                        //How to do ts
     //recursively:
         //find positions where you have to put your opponent in a "winning state" -> "losing state"
         //find new positions that you can put your opponent in a "losing state" -> winning state
