@@ -73,10 +73,27 @@ public class MyChomp {
                 System.out.println(result);
                 continue;
             }
-            System.out.println("The board " + getBoard(c0, c1, c2) + " is a losing board.");
+            System.out.println("The board " + getBoard(c0, c1, c2) + " is a losing board. " + pickLosingMove(c0, c1, c2));
             int[] thisLosingBoard = {c0, c1, c2};
             loseBoards.add(thisLosingBoard);
         }
+    }
+
+    String pickLosingMove(int c0, int c1, int c2){
+        String starter = "Might as well play (";
+        int col = c0-1;
+        if(c2 != 0) {
+            col = c2 - 1;
+            starter += "2, " + col + ").";
+            return starter;
+        }
+        if(c1 != 0){
+            col = c1-1;
+            starter += "1, " + col + ").";
+            return starter;
+        }
+        starter += "0, " + col + ").";
+        return starter;
     }
 
     String i0possibleMoves(int c0, int c1, int c2) {
