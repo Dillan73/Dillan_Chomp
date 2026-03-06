@@ -27,11 +27,8 @@ public class MyChomp {
         printAllBoards();
 
         //for each board, sout either losing board or the move to win
-        printAllBestMoves();
-
-
-        //for each board, sout the possible moves in Bradford notation
-//        printAllPossibleMoves();
+//        printAllBestMoves();
+        generate();
     }
 
     boolean contained(ArrayList<int[]> existing, int[] potential){
@@ -51,6 +48,33 @@ public class MyChomp {
             }
         }
         return false;
+    }
+
+    void generate(){
+        for(int c0 = 1; c0 <= size; c0++) {
+            for (int c1 = 0; c1 <= c0; c1++) {
+                for (int c2 = 0; c2 <= c1; c2++) {
+                    String result = i0possibleMoves(c0, c1, c2);
+                    if(!result.equals("nah")) {
+                        System.out.println(result);
+                        continue;
+                    }
+                    result = i1possibleMoves(c0, c1, c2);
+                    if(!result.equals("nah")) {
+                        System.out.println(result);
+                        continue;
+                    }
+                    result = i2possibleMoves(c0, c1, c2);
+                    if(!result.equals("nah")) {
+                        System.out.println(result);
+                        continue;
+                    }
+                    System.out.println("The board " + getBoard(c0, c1, c2) + " is a losing board. " + pickLosingMove(c0, c1, c2));
+                    int[] thisLosingBoard = {c0, c1, c2};
+                    loseBoards.add(thisLosingBoard);
+                }
+            }
+        }
     }
 
     void printAllBestMoves(){
@@ -175,16 +199,20 @@ public class MyChomp {
     }
 
     void makeAllBoards(){
-        allBoards = new int[19][3];
+        ArrayList<int[]> listBoards = new ArrayList<>();
         int index = 0;
         for(int c0 = 1; c0 <= size; c0++){
             for(int c1 = 0; c1 <= c0; c1++){
                 for(int c2 = 0; c2 <= c1; c2++){
                     int[] curr = {c0, c1, c2};
-                    allBoards[index] = curr;
-                    index++;
+                    listBoards.add(curr);
                 }
             }
+        }
+        allBoards = new int[listBoards.size()][3];
+        for(int[] arr : listBoards){
+            allBoards[index] = arr;
+            index++;
         }
     }
 
