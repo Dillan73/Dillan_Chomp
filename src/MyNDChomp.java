@@ -1,11 +1,10 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class MyChomp {
+public class MyNDChomp {
     int size;
     int[][] allBoards;
     public static void main(String[] args) {
-        MyChomp print3x3 = new MyChomp(3);
+        MyNDChomp print3x3 = new MyNDChomp(3);
     }
     ArrayList<int[]> loseBoards = new ArrayList<>();
     ArrayList<int[]> winBoards = new ArrayList<>();
@@ -16,24 +15,75 @@ public class MyChomp {
     //have 3 values to show how many are left in each row (bottom is shown first)
         //0<=r0<=r1<=r2<=3 and r0<3.
 
-    public MyChomp(int size){
+    public MyNDChomp(int size){
         this.size = size;
-        int[] base = {1,0,0};
-        loseBoards.add(base);
+        int[] baseCase = new int[size];
+        baseCase[0] = 1;
+        loseBoards.add(baseCase);
 
         //make the 2d array of 19 boards
-        makeAllBoards();
+        findBoards();
 
         //sout all the boards in Bradford notation
         printAllBoards();
 
         //for each board, sout either losing board or the move to win
-//        printAllBestMoves();
         generate();
 
         //print out the desired move for each board
-            printMoves();
+        printMoves();
 
+    }
+
+    private void findBoards(){
+        ArrayList<int[]> listBoards = new ArrayList<>();
+        int[] curr = new int[size];
+        curr[0] = 1;
+        while(curr[0] < size){
+            listBoards.add(curr);
+            curr[size-1]+=1;
+            for(int c = size-1; c > 0; c--){
+                if(curr[c]>=size){
+                    curr[c-1]++;
+                    for(int h = c; h < size; h++){
+                        curr[h] = curr[c-1];
+                    }
+                }
+            }
+        }
+        int index = 0;
+        allBoards = new int[listBoards.size()][size];
+        for(int[] arr : listBoards){
+            allBoards[index] = arr;
+            index++;
+        }
+    }
+
+    private void findBestMoves(){
+        for(int index = 0; index < size; index++){
+            int[] curr = allBoards[index];
+            int[] move = checkWinning(curr);
+            if(move[0] == -1){
+                move = pickLosing(curr);
+                loseBoards.add(curr);
+            }else{
+                winBoards.add(curr);
+            }
+            int[] state = new int[curr.length+2];
+            for(int i = 0; i < curr.length; i++){
+                state[i] = curr[i];
+            }
+            state[curr.length] = move[0];
+            state[curr.length+1] = move[1];
+            moves.add(state);
+        }
+    }
+
+    private int[] checkWinning(int[] curr){
+
+    }
+
+    private int[] pickLosing(int[] curr) {
     }
 
     private void printMoves() {
@@ -204,24 +254,6 @@ public class MyChomp {
         }
         boardsString = boardsString.substring(0, boardsString.length()-3);
         System.out.println(boardsString);
-    }
-
-    void makeAllBoards(){
-        ArrayList<int[]> listBoards = new ArrayList<>();
-        int index = 0;
-        for(int c0 = 1; c0 <= size; c0++){
-            for(int c1 = 0; c1 <= c0; c1++){
-                for(int c2 = 0; c2 <= c1; c2++){
-                    int[] curr = {c0, c1, c2};
-                    listBoards.add(curr);
-                }
-            }
-        }
-        allBoards = new int[listBoards.size()][size];
-        for(int[] arr : listBoards){
-            allBoards[index] = arr;
-            index++;
-        }
     }
 
     String getBoard(int index){
