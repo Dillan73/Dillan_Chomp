@@ -11,7 +11,7 @@ public class MyPlayer {
         columns = new int[10];
 
         MyNDChomp ChomperuskiBuski = new MyNDChomp(10);
-        moves  = ChomperuskiBuski.moves;
+        moves = ChomperuskiBuski.moves;
         /***
          * This code will run just once, when the game opens.
          * Add your code here.

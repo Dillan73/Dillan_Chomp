@@ -6,10 +6,11 @@ public class MyNDChomp {
     int[][] allBoards;
     private ArrayList<int[]> loseBoards = new ArrayList<>();
     private ArrayList<int[]> winBoards = new ArrayList<>();
+    public int[][] movesArray;
     public ArrayList<int[]> moves = new ArrayList<>();
 
     public static void main(String[] args) {
-        MyNDChomp print3x3 = new MyNDChomp(3);
+        MyNDChomp print3x3 = new MyNDChomp(10);
     }
 
     public MyNDChomp(int size){
@@ -42,6 +43,7 @@ public class MyNDChomp {
     }
 
     private void findBestMoves(){
+        movesArray = new int[allBoards.length][size];
         System.out.println("Now: finding the best move for each board");
         for(int index = 0; index < allBoards.length; index++){
             int[] curr = allBoards[index];
@@ -49,9 +51,7 @@ public class MyNDChomp {
             if(move[0] == -1){
                 move = pickLosing(curr);
                 loseBoards.add(curr);
-                System.out.println(Arrays.toString(curr) + " is a losing?");
-            }else{
-                winBoards.add(curr);
+////                System.out.println(Arrays.toString(curr) + " is a losing?");
             }
             int[] state = new int[curr.length+2];
             for(int i = 0; i < curr.length; i++){
@@ -59,6 +59,7 @@ public class MyNDChomp {
             }
             state[curr.length] = move[0];
             state[curr.length+1] = move[1];
+            //movesArray[index] = state;
             moves.add(state);
         }
     }
@@ -71,7 +72,7 @@ public class MyNDChomp {
                     temp[h] = Math.min(temp[h], row);
                 }
                 if(contained(loseBoards, temp)){
-                    System.out.println(Arrays.toString(curr) + " is winning by playing (" + col + "," + row + ").");
+//                    System.out.println(Arrays.toString(curr) + " is winning by playing (" + col + "," + row + ").");
                     return new int[]{row, col};
                 }
             }
@@ -85,7 +86,7 @@ public class MyNDChomp {
                 return new int[]{row, col};
             }
         }
-        System.out.println("Uhh wtf is going on here? Smth in pick losing (or before) went wrong.");
+//        System.out.println("Uhh wtf is going on here? Smth in pick losing (or before) went wrong.");
         return new int[]{0,0};
     }
 
@@ -117,34 +118,12 @@ public class MyNDChomp {
 
     boolean contained(ArrayList<int[]> existing, int[] potential){
         for(int[] arr : existing){
-            if(arr.length != potential.length){
-                continue;
-            }
             boolean failed = false;
-            for(int i = 0; i < arr.length; i++){
-                if(arr[i] != potential[i]){
-                    failed = true;
-                    break;
-                }
-            }
-            if(!failed){
+            if(Arrays.equals(arr, potential)){
                 return true;
             }
         }
         return false;
-    }
-
-    void printAllBoards(){
-        System.out.println("Now: printing the possible boards");
-        String boardsString = "All the possible 3x3 boards, written in the form (# tiles in left column, # tiles in middle column, # tiles in in right column) are: ";
-        for(int row = 0; row < allBoards.length; row++) {
-            int curr=row+1;
-            String thisBoard = curr + ": ";
-            thisBoard += getBoard(allBoards[row]);
-            boardsString = boardsString + thisBoard + " | ";
-        }
-        boardsString = boardsString.substring(0, boardsString.length()-3);
-        System.out.println(boardsString);
     }
 
     String getBoard(int[] board) {
