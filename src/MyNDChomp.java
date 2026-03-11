@@ -23,13 +23,13 @@ public class MyNDChomp {
         findBoards();
 
         //sout all the boards in Bradford notation
-        printAllBoards();
+//        printAllBoards();
 
         //find all the best moves
         findBestMoves();
 
         //for each board, sout the move to play
-        printBestMoves();
+//        printBestMoves();
 
     }
 
