@@ -9,7 +9,7 @@ public class MyNDChomp {
     public ArrayList<int[]> moves = new ArrayList<>();
 
     public static void main(String[] args) {
-        MyNDChomp print3x3 = new MyNDChomp(4);
+        MyNDChomp print3x3 = new MyNDChomp(3);
     }
 
     public MyNDChomp(int size){
@@ -72,7 +72,7 @@ public class MyNDChomp {
                 }
                 if(contained(loseBoards, temp)){
                     System.out.println(Arrays.toString(curr) + " is winning by playing (" + col + "," + row + ").");
-                    return new int[]{col, row};
+                    return new int[]{row, col};
                 }
             }
         }
@@ -82,7 +82,7 @@ public class MyNDChomp {
     private int[] pickLosing(int[] curr) {
         for(int col = curr.length-1; col >= 0; col--){
             for(int row = curr[col]-1; row >= 0; row--){
-                return new int[]{col, row};
+                return new int[]{row, col};
             }
         }
         System.out.println("Uhh wtf is going on here? Smth in pick losing (or before) went wrong.");
