@@ -47,10 +47,12 @@ public class MyPlayer {
             columns[c] = chips;
         }
         for(int[] arr : moves){
+            System.out.println("its doing this");
             int[] concat = Arrays.copyOf(arr, 10);
-            if(concat.equals(columns)){
+            if(Arrays.equals(concat, columns)){
                 row = arr[10];
                 column = arr[11];
+                System.out.println("AEFAWEGASRGAWEFAWEGAWEFAWEFAWGEAEWSF   IT WORKED  ASDFASEAFAWE");
                 break;
             }
         }
