@@ -10,15 +10,15 @@ public class MyNDChomp {
     public ArrayList<int[]> moves = new ArrayList<>();
 
     public static void main(String[] args) {
-        MyNDChomp print3x3 = new MyNDChomp(10);
+        MyNDChomp print3x3 = new MyNDChomp(3);
     }
 
     public MyNDChomp(int size){
         this.size = size;
         int[] baseCase = new int[size];
-        loseBoards.add(baseCase);
-        baseCase[0] = 1;
-        loseBoards.add(baseCase);
+//        loseBoards.add(baseCase);
+//        baseCase[0] = 1;
+//        loseBoards.add(baseCase);
 
         //make the 2d array of all the possible boards
         findBoards();
@@ -47,11 +47,12 @@ public class MyNDChomp {
         System.out.println("Now: finding the best move for each board");
         for(int index = 0; index < allBoards.length; index++){
             int[] curr = allBoards[index];
-            int[] move = findWinning(curr);
+            int[] move = optimalFindWinning(curr);
+//            int[] move = findWinning(curr);
             if(move[0] == -1){
                 move = pickLosing(curr);
                 loseBoards.add(curr);
-////                System.out.println(Arrays.toString(curr) + " is a losing?");
+//                System.out.println(Arrays.toString(curr) + " is a losing?");
             }
             int[] state = new int[curr.length+2];
             for(int i = 0; i < curr.length; i++){
@@ -78,6 +79,50 @@ public class MyNDChomp {
             }
         }
         return new int[]{-1, -1};
+    }
+
+    private int[] optimalFindWinning(int[] curr){
+//        System.out.println("Checking " + Arrays.toString(curr));
+        int[] move = {-1, -1};
+        for(int[] arr : loseBoards){
+            boolean possible = true;
+            boolean found = false; //if this is a possible move
+//            System.out.println("looking at the possibility of " + Arrays.toString(arr));
+            for(int c = 0; c < size; c++){ //is arr a possible board?
+                if(arr[c]>curr[c]){ //it isn't bc can't add tiles
+                    possible = false;
+                    break;
+                }
+                if(arr[c] == curr[c]) {
+                    continue;
+                }
+                if(arr[c]<curr[c]){
+                    found = true;
+                    for(int h = c; h < size; h++){
+                        int val = Math.min(arr[c], curr[h]); // value at curr[h] if clicking in col c
+//                        System.out.println("Val is " + val + " for the board " + Arrays.toString(curr) + " at h= " + h + ". Also, this is checking if the board " + Arrays.toString(arr) + " is possible." + "c=" + c + " and arr[c] = " + arr[c]);
+                        if(val != arr[h]) { //this click was necessary, but doesn't lead to correct --> board not possible
+                            found = false;
+//                            System.out.println("Saw that this board isn't feasible");
+                            break;
+                        }
+                    }
+                    if(!found){
+                        break;
+                    }
+                    if(found) {
+                        move[0] = arr[c];
+                        move[1] = c;
+//                        System.out.println("the selected move was (" + move[0] + "," + move[1] + ").");
+                        return move;
+                    }
+
+                }
+            }
+            //no move to reach, move on to next board
+        }
+//        System.out.println("didn't find anything");
+        return move;
     }
 
     private int[] pickLosing(int[] curr) {
@@ -125,40 +170,4 @@ public class MyNDChomp {
         }
         return false;
     }
-
-    String getBoard(int[] board) {
-        String boardString = "(";
-        for (int col = 0; col < board.length; col++) {
-            boardString += board[col] + ",";
-        }
-        boardString = boardString.substring(0, boardString.length() - 1);
-        boardString += ")";
-        return boardString;
-    }
-                                        //How to do ts
-    //recursively:
-        //find positions where you have to put your opponent in a "winning state" -> "losing state"
-        //find new positions that you can put your opponent in a "losing state" -> winning state
-
-                            //Showing each specific step
-    //start with the end position as a "losing state"
-        //when (1,0) and (0,1) are empty
-        //this is denoted with a crying emoji, since ur cooked
-        //1 losing state
-
-    //find all positions that you can put your opponent in the end position
-        //tell the user what move accomplishes this. Call this a "winning state"
-        //when (1,0) and (2,0) is empty or when (0,1) and (0,2) is empty
-        //2 winning states
-
-    //find positions in which you have to put your opponent in one of the winning positions
-        //when there is (0,0), (0,1) and (1,0)
-        //losing state, denoted again with a crying emoji
-        //1 losing state (2)
-
-    //find positions that can put your opponent in this losing state
-        //when there is (0,0), (0,1), (1,0). Also, either
-
-    //find positions where
-
 }

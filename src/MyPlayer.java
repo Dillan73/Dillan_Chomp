@@ -10,7 +10,7 @@ public class MyPlayer {
     public MyPlayer() {
         columns = new int[10];
 
-        MyNDChomp ChomperuskiBuski = new MyNDChomp(10);
+        MyNDChomp ChomperuskiBuski = new MyNDChomp(10); //10
         moves = ChomperuskiBuski.moves;
         /***
          * This code will run just once, when the game opens.
@@ -48,10 +48,12 @@ public class MyPlayer {
         }
         for(int[] arr : moves){
             System.out.println("its doing this");
-            int[] concat = Arrays.copyOf(arr, 10);
+            int[] concat = Arrays.copyOf(arr, 10); //10
             if(Arrays.equals(concat, columns)){
                 row = arr[10];
+                System.out.println(row);
                 column = arr[11];
+                System.out.println(column);
                 System.out.println("AEFAWEGASRGAWEFAWEGAWEFAWEFAWGEAEWSF   IT WORKED  ASDFASEAFAWE");
                 break;
             }
