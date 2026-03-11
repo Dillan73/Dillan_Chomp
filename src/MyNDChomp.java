@@ -63,6 +63,7 @@ public class MyNDChomp {
             //movesArray[index] = state;
             moves.add(state);
         }
+        System.out.println("I'm done");
     }
 
     private int[] findWinning(int[] curr){

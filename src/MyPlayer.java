@@ -47,7 +47,7 @@ public class MyPlayer {
             columns[c] = chips;
         }
         for(int[] arr : moves){
-            System.out.println("its doing this");
+//            System.out.println("its doing this");
             int[] concat = Arrays.copyOf(arr, 10); //10
             if(Arrays.equals(concat, columns)){
                 row = arr[10];
