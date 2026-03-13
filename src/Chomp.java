@@ -1,3 +1,5 @@
+//hash table
+//the acid rain chance the rapper
 //Chomp Version 2.1
 
 //Complete rewrite to change the board to a 2 dimensional array
