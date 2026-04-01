@@ -11,15 +11,12 @@ public class MyNDChomp {
     long currentTime;
 
     public static void main(String[] args) {
-        MyNDChomp print3x3 = new MyNDChomp(7);
+        MyNDChomp print3x3 = new MyNDChomp(10);
     }
 
     public MyNDChomp(int size){
         this.size = size;
         int[] baseCase = new int[size];
-//        loseBoards.add(baseCase);
-//        baseCase[0] = 1;
-//        loseBoards.add(baseCase);
 
         //make the 2d array of all the possible boards
         findBoards();
@@ -70,22 +67,6 @@ public class MyNDChomp {
         System.out.println("I'm done. My process took " + timeTaken + " ms.");
     }
 
-    private int[] findWinning(int[] curr){
-        for(int col = 0; col < curr.length; col++){
-            for(int row = 0; row < curr[col]; row++){
-                int[] temp = Arrays.copyOf(curr, size);
-                for(int h = col; h < size; h++){
-                    temp[h] = Math.min(temp[h], row);
-                }
-                if(contained(loseBoards, temp)){
-//                    System.out.println(Arrays.toString(curr) + " is winning by playing (" + col + "," + row + ").");
-                    return new int[]{row, col};
-                }
-            }
-        }
-        return new int[]{-1, -1};
-    }
-
     private int[] optimalFindWinning(int[] curr){
 //        System.out.println("Checking " + Arrays.toString(curr));
         int[] move = {-1, -1};
@@ -105,7 +86,6 @@ public class MyNDChomp {
                     found = true;
                     for(int h = c; h < size; h++){
                         int val = Math.min(arr[c], curr[h]); // value at curr[h] if clicking in col c
-//                        System.out.println("Val is " + val + " for the board " + Arrays.toString(curr) + " at h= " + h + ". Also, this is checking if the board " + Arrays.toString(arr) + " is possible." + "c=" + c + " and arr[c] = " + arr[c]);
                         if(val != arr[h]) { //this click was necessary, but doesn't lead to correct --> board not possible
                             found = false;
 //                            System.out.println("Saw that this board isn't feasible");
@@ -118,15 +98,12 @@ public class MyNDChomp {
                     if(found) {
                         move[0] = arr[c];
                         move[1] = c;
-//                        System.out.println("the selected move was (" + move[0] + "," + move[1] + ").");
                         return move;
                     }
 
                 }
             }
-            //no move to reach, move on to next board
         }
-//        System.out.println("didn't find anything");
         return move;
     }
 
@@ -136,7 +113,6 @@ public class MyNDChomp {
                 return new int[]{row, col};
             }
         }
-//        System.out.println("Uhh wtf is going on here? Smth in pick losing (or before) went wrong.");
         return new int[]{0,0};
     }
 
@@ -165,6 +141,7 @@ public class MyNDChomp {
             allBoards[index] = arr;
             index++;
         }
+        System.out.println(allBoards.length);
     }
 
     boolean contained(ArrayList<int[]> existing, int[] potential){
