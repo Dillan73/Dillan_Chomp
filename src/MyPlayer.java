@@ -20,7 +20,7 @@ public class MyPlayer {
 
     public Point move(Chip[][] pBoard) {
 
-        System.out.println("MyPlayer Move");
+        System.out.println("MyPlayer start");
 
         gameBoard = pBoard;
         int column = 0;
@@ -51,15 +51,16 @@ public class MyPlayer {
             int[] concat = Arrays.copyOf(arr, 10); //10
             if(Arrays.equals(concat, columns)){
                 row = arr[10];
-                System.out.println(row);
+                //System.out.println(row);
                 column = arr[11];
-                System.out.println(column);
-                System.out.println("AEFAWEGASRGAWEFAWEGAWEFAWEFAWGEAEWSF   IT WORKED  ASDFASEAFAWE");
+                //System.out.println(column);
+                //System.out.println("AEFAWEGASRGAWEFAWEGAWEFAWEFAWGEAEWSF   IT WORKED  ASDFASEAFAWE");
                 break;
             }
         }
 
         Point myMove = new Point(row, column);
+        System.out.println("My player has moved");
         return myMove;
     }
 

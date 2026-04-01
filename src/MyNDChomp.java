@@ -8,9 +8,10 @@ public class MyNDChomp {
     private ArrayList<int[]> winBoards = new ArrayList<>();
     public int[][] movesArray;
     public ArrayList<int[]> moves = new ArrayList<>();
+    long currentTime;
 
     public static void main(String[] args) {
-        MyNDChomp print3x3 = new MyNDChomp(3);
+        MyNDChomp print3x3 = new MyNDChomp(7);
     }
 
     public MyNDChomp(int size){
@@ -35,7 +36,8 @@ public class MyNDChomp {
     }
 
     private void printBestMoves(){
-        System.out.println("Now: printing the moves arrays");
+        System.out.println("Now: printing the moves arrays" + System.currentTimeMillis());
+        currentTime = System.currentTimeMillis();
         for(int index = 0; index < moves.size(); index++){
             String StringVOfArr = Arrays.toString(moves.get(index));
             System.out.println(StringVOfArr);
@@ -44,7 +46,8 @@ public class MyNDChomp {
 
     private void findBestMoves(){
         movesArray = new int[allBoards.length][size];
-        System.out.println("Now: finding the best move for each board");
+        long timeTaken = System.currentTimeMillis() - currentTime;
+        System.out.println("Find the boards took " + timeTaken + " ms. Finding the best move for each board...");
         for(int index = 0; index < allBoards.length; index++){
             int[] curr = allBoards[index];
             int[] move = optimalFindWinning(curr);
@@ -63,7 +66,8 @@ public class MyNDChomp {
             //movesArray[index] = state;
             moves.add(state);
         }
-        System.out.println("I'm done");
+        timeTaken = System.currentTimeMillis()-currentTime;
+        System.out.println("I'm done. My process took " + timeTaken + " ms.");
     }
 
     private int[] findWinning(int[] curr){
@@ -137,7 +141,8 @@ public class MyNDChomp {
     }
 
     private void findBoards(){
-        System.out.println("Now: finding all the possible boards");
+        System.out.println("Finding all the possible boards...");
+        currentTime = System.currentTimeMillis();
         ArrayList<int[]> listBoards = new ArrayList<>();
         int[] curr = new int[size];
         curr[0] = 1;
