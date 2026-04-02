@@ -6,12 +6,21 @@ public class MyPlayer {
     public Chip[][] gameBoard;
     public int[] columns;
     ArrayList<int[]> moves;
+    int[] allBoards;
+    int[] movesArray;
+    int numBoards;
 
     public MyPlayer() {
         columns = new int[10];
 
-        MyNDChomp ChomperuskiBuski = new MyNDChomp(10); //10
-        moves = ChomperuskiBuski.moves;
+//        MyNDChomp ChomperuskiBuski = new MyNDChomp(10); //10
+//        moves = ChomperuskiBuski.moves;
+
+        My10DChomp ChomperuskiBuski = new My10DChomp(10); //10
+        allBoards = ChomperuskiBuski.allBoards;
+        movesArray = ChomperuskiBuski.movesArray;
+        numBoards = ChomperuskiBuski.numBoards;
+
         /***
          * This code will run just once, when the game opens.
          * Add your code here.
@@ -46,16 +55,25 @@ public class MyPlayer {
             }
             columns[c] = chips;
         }
-        for(int[] arr : moves){
-//            System.out.println("its doing this");
-            int[] concat = Arrays.copyOf(arr, 10); //10
-            if(Arrays.equals(concat, columns)){
-                row = arr[10];
-                //System.out.println(row);
-                column = arr[11];
-                //System.out.println(column);
-                //System.out.println("AEFAWEGASRGAWEFAWEGAWEFAWEFAWGEAEWSF   IT WORKED  ASDFASEAFAWE");
-                break;
+//        for(int[] arr : moves){
+//            int[] concat = Arrays.copyOf(arr, 10); //10
+//            if(Arrays.equals(concat, columns)){
+//                row = arr[10];
+//                column = arr[11];
+//                break;
+//            }
+//        }
+
+        for(int i = 0; i < numBoards; i++){
+            boolean found = true;
+            for(int j = 0; j < 10; j++){
+                if(allBoards[i*10+j] != columns[j]){
+                    found = false;
+                    break;
+                }
+            }
+            if(found){
+                return new Point(movesArray[2*i], movesArray[2*i+1]);
             }
         }
 
