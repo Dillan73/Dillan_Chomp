@@ -21,8 +21,6 @@ public class HashtableChomp {
 
         //find all the best moves
             findBestMoves1DArray();
-
-        System.out.println(losingTable.size());
     }
 
     private void findBestMoves1DArray(){
@@ -39,21 +37,17 @@ public class HashtableChomp {
 
     private void findMove(int[] arr){
         String concat = "";
+        String toString = Arrays.toString(arr);
         int[] forMoves = new int[size+2];
         System.arraycopy(arr, 0, forMoves, 0, size);
-        for(int i = 0; i < size; i++){
-            concat = concat + arr[i] + "_";
-        }
+
         for(int c = 0; c < size; c++){
             for(int r = 0; r < arr[c]; r++){
                 int[] postMove = Arrays.copyOf(arr, size);
                 for(int curr = c; curr < size; curr++){
                     postMove[curr] = Math.min(postMove[curr], r);
                 }
-                String move = "";
-                for(int i = 0; i < size; i++){
-                    move = move + postMove[i] + "_";
-                }
+                String move = Arrays.toString(postMove);
                 if(losingTable.get(move) != null){
                     //put the board and move in move table as a pair
                     forMoves[size] = r;
@@ -96,6 +90,5 @@ public class HashtableChomp {
                 }
             }
         }
-        System.out.println(System.currentTimeMillis()-currentTime);
     }
 }
