@@ -1,25 +1,18 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 
 public class MyPlayer {
     public Chip[][] gameBoard;
     public int[] columns;
     ArrayList<int[]> moves;
-    int[] allBoards;
-    int[] movesArray;
-    int numBoards;
 
     public MyPlayer() {
         columns = new int[10];
 
-//        MyNDChomp ChomperuskiBuski = new MyNDChomp(10); //10
-//        moves = ChomperuskiBuski.moves;
-
-        My10DChomp ChomperuskiBuski = new My10DChomp(10); //10
-        allBoards = ChomperuskiBuski.allBoards;
-        movesArray = ChomperuskiBuski.movesArray;
-        numBoards = ChomperuskiBuski.numBoards;
+        HashtableChomp ChomperuskiBuski = new HashtableChomp(10); //10
+        moves = ChomperuskiBuski.moves;
 
         /***
          * This code will run just once, when the game opens.
@@ -32,11 +25,8 @@ public class MyPlayer {
         System.out.println("MyPlayer start");
 
         gameBoard = pBoard;
-        int column = 0;
-        int row = 0;
-
-        row = 1;
-        column = 1;
+        int column = 1;
+        int row = 1;
 
         /***
          * This code will run each time the "MyPlayer" button is pressed.
@@ -55,25 +45,11 @@ public class MyPlayer {
             }
             columns[c] = chips;
         }
-//        for(int[] arr : moves){
-//            int[] concat = Arrays.copyOf(arr, 10); //10
-//            if(Arrays.equals(concat, columns)){
-//                row = arr[10];
-//                column = arr[11];
-//                break;
-//            }
-//        }
 
-        for(int i = 0; i < numBoards; i++){
-            boolean found = true;
-            for(int j = 0; j < 10; j++){
-                if(allBoards[i*10+j] != columns[j]){
-                    found = false;
-                    break;
-                }
-            }
-            if(found){
-                return new Point(movesArray[2*i], movesArray[2*i+1]);
+        for(int[] arr : moves){
+            int[] concat = Arrays.copyOf(arr, 10); //10
+            if(Arrays.equals(concat, columns)){
+                return new Point(arr[10], arr[11]);
             }
         }
 

@@ -23,6 +23,7 @@ public class My10DChomp {
         //find all the best moves
             findBestMoves1DArray();
 
+        System.out.println(loseBoards.size());
     }
 
     private void findBestMoves1DArray(){
