@@ -78,13 +78,13 @@ public class Chomp implements Runnable, MouseListener {
                 board[r][c] = new Chip(r, c, xOffset, yOffset, chipWidth);
             }
         }
-        System.out.println("Full graphics done");
         //sounds
         // chipTaken = new SoundFile("takeChip.wav");
         youLose = new SoundFile("sound1.wav");
 
         //players
         randomPlayer = new RandomPlayer();
+        System.out.println("My turn");
         aiPlayer = new MyPlayer();
     }//
 
