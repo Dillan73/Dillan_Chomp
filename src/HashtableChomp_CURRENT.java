@@ -86,7 +86,7 @@ public class HashtableChomp_CURRENT {
             int[] temp = Arrays.copyOf(curr, size);
             allBoards.add(temp); //add the current board
 
-            //add a chip and move chips to the left if necessary (can't have more on the right than left)
+            //add a chip while making sure no column has more chips than a column to the left
             curr[size-1]+=1;
             for(int c = size-1; c > 0; c--){
                 if(curr[c]>curr[c-1]){
