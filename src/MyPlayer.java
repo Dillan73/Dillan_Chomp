@@ -6,12 +6,23 @@ public class MyPlayer {
     public Chip[][] gameBoard;
     public int[] columns;
     ArrayList<int[]> moves;
+    int[] allBoards;
+    int[] movesArray;
+    int numBoards;
+    int size;
 
     public MyPlayer() {
         columns = new int[10];
 
-        HashtableChomp_CURRENT ChomperuskiBuski = new HashtableChomp_CURRENT(10); //10
+        size = 10;
+
+        HashtableChomp_CURRENT ChomperuskiBuski = new HashtableChomp_CURRENT(size); //10
         moves = ChomperuskiBuski.moves;
+
+//        My10DChomp otherChomper = new My10DChomp();
+//        allBoards = otherChomper.allBoards;
+//        movesArray = otherChomper.movesArray;
+//        numBoards = otherChomper.numBoards;
 
         /***
          * This code will run just once, when the game opens.
@@ -51,6 +62,19 @@ public class MyPlayer {
                 return new Point(arr[10], arr[11]);
             }
         }
+//
+//        for(int i = 0; i < numBoards; i++){
+//            boolean found = true;
+//            for(int j = 0; j < 10; j++){
+//                if(allBoards[i*10+j] != columns[j]){
+//                    found = false;
+//                    break;
+//                }
+//            }
+//            if(found){
+//                return new Point(movesArray[2*i], movesArray[2*i+1]);
+//            }
+//        }
 
         Point myMove = new Point(row, column);
         System.out.println("My player has moved");

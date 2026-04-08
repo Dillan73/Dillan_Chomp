@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class My10DChomp { //an old file that uses the fact its 10x10 but isn't better
+public class My10DChomp { //an old version that uses numBoards to use 1d arrays (but no hashtable)
     int size;
     int[] allBoards;
     private ArrayList<int[]> loseBoards = new ArrayList<>();
@@ -10,17 +10,17 @@ public class My10DChomp { //an old file that uses the fact its 10x10 but isn't b
     int numBoards = 184755;
 
     public static void main(String[] args) {
-        My10DChomp print3x3 = new My10DChomp(10);
+        My10DChomp print3x3 = new My10DChomp();
     }
 
-    public My10DChomp(int size){
-        this.size = size;
+    public My10DChomp(){
+        this.size = 10;
         int[] baseCase = new int[size];
 
-        //make the 2d array of all the possible boards
-        findBoards();
+        //make the array of all the possible boards
+            findBoards();
 
-        //find all the best moves
+        //find all the best moves and store as a 1d array
             findBestMoves1DArray();
 
         System.out.println(loseBoards.size());
