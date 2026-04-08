@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MyNDChomp {
+public class MyNDChomp { // OLD FILE USED THAT I DONT USE ANYMORE
     int size;
     int[][] allBoards;
     private ArrayList<int[]> loseBoards = new ArrayList<>();
@@ -30,6 +30,8 @@ public class MyNDChomp {
 
         //for each board, sout the move to play
 //        printBestMoves();
+
+        System.out.println(loseBoards.size());
 
     }
 

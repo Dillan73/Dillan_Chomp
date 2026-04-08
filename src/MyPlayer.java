@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Hashtable;
 
 public class MyPlayer {
     public Chip[][] gameBoard;
@@ -11,7 +10,7 @@ public class MyPlayer {
     public MyPlayer() {
         columns = new int[10];
 
-        HashtableChomp ChomperuskiBuski = new HashtableChomp(10); //10
+        HashtableChomp_CURRENT ChomperuskiBuski = new HashtableChomp_CURRENT(10); //10
         moves = ChomperuskiBuski.moves;
 
         /***

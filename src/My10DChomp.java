@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class My10DChomp {
+public class My10DChomp { //an old file that uses the fact its 10x10 but isn't better
     int size;
     int[] allBoards;
     private ArrayList<int[]> loseBoards = new ArrayList<>();

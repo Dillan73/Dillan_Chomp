@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MyChomp {
+public class MyChomp { //OLD 3x3 code that is close to hard coded
     int size;
     int[][] allBoards;
     public static void main(String[] args) {
