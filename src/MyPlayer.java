@@ -6,9 +6,6 @@ public class MyPlayer {
     public Chip[][] gameBoard;
     public int[] columns;
     ArrayList<int[]> moves;
-    int[] allBoards;
-    int[] movesArray;
-    int numBoards;
     int size;
 
     public MyPlayer() {
