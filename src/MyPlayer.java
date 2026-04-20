@@ -54,9 +54,9 @@ public class MyPlayer {
         }
 
         for(int[] arr : moves){
-            int[] concat = Arrays.copyOf(arr, 10); //10
-            if(Arrays.equals(concat, columns)){
-                return new Point(arr[10], arr[11]);
+            int[] concat = Arrays.copyOf(arr, 10); //look at the board part of the move array
+            if(Arrays.equals(concat, columns)){ //if this is the array for the current board:
+                return new Point(arr[10], arr[11]); //play the move found as the "best move"
             }
         }
 //

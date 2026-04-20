@@ -71,10 +71,25 @@ public class HashtableChomp_CURRENT {
         losingTable.put(concat, "losing");
 
         //find a move to play that keeps a lot of chips
-        for(int col = size-1; col >= 0; col--){
-            for(int row = arr[col]-1; row >= 0; row--){
+        int index = 0;
+        while(index < 10) {
+            for (int col = size - 1; col >= 0; col--) {
+                for (int row = arr[col] - 1; row >= 0; row--) {
+                    if(Math.random() >= 0.01){
+                        continue;
+                    }
+                    forMoves[size] = row;
+                    forMoves[size + 1] = col;
+                    moves.add(forMoves);
+                    return;
+                }
+            }
+            index++;
+        }
+        for (int col = size - 1; col >= 0; col--) {
+            for (int row = arr[col] - 1; row >= 0; row--) {
                 forMoves[size] = row;
-                forMoves[size+1] = col;
+                forMoves[size + 1] = col;
                 moves.add(forMoves);
                 return;
             }
