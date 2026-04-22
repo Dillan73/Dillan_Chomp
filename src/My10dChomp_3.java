@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class My10dChomp_3 { //an old version that uses numBoards to use 1d arrays (but no hashtable)
+public class My10dChomp_3 { //old version that tried to utilize the number of boards (using a 1d array)
     int size;
     int[] allBoards;
     private ArrayList<int[]> loseBoards = new ArrayList<>();

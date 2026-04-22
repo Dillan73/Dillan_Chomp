@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class My3dChomp_1 { //OLD 3x3 code that is close to hard coded
+public class My3dChomp_1 { //old 3x3 code that is close to hard coded
     int size;
     int[][] allBoards;
     public static void main(String[] args) {

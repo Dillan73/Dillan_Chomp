@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 
-public class MyRngChomp_HT1 {
+public class MyRngChomp_HT1 { //an old version that attempted to add in random losing moves
+
     int size; //i used this to be able to test more things (as a way to help debug and test ideas on simpler scenarios)
     ArrayList<int[]> allBoards; //all the possible size by size boards
     private Hashtable<String, String> losingTable = new Hashtable<>();; // the losing boards.

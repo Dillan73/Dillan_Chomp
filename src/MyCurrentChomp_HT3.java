@@ -2,13 +2,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 
-public class MyCurrentChomp_HT3 {
+public class MyCurrentChomp_HT3 { //my current version
+
     int size; //i used this to be able to test more things (as a way to help debug and test ideas on simpler scenarios)
     ArrayList<int[]> allBoards; //all the possible size by size boards
     private Hashtable<String, String> losingTable = new Hashtable<>();; // the losing boards.
         // I used a hashtable because I know its more efficient at retrieval. I switched to strings from arrays cuz I looked thru the hashtable docs and saw it uses .equals, which doesn't work for arrays
     long currentTime; // used this to test how long specific parts/methods took
         //takes ~0.6 seconds to make at the start and doesn't noticeably lag when playing a move
+
     public ArrayList<int[]> moves = new ArrayList<>(); // this stores the best move for a specific board
         //i might change this to a hashtable that maps a board string to a move string.
             //i think that would be more efficient for recall, but since recall is fast, im not prioritizing this

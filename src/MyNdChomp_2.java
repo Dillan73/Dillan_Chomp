@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MyNdChomp_2 { // OLD FILE USED THAT I DONT USE ANYMORE
+public class MyNdChomp_2 { // old version that brought 3x3 to NxN
     int size;
     int[][] allBoards;
     private ArrayList<int[]> loseBoards = new ArrayList<>();
