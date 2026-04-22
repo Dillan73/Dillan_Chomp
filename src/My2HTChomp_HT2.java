@@ -2,22 +2,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 
-public class MyHashtableChompv2 {
+public class My2HTChomp_HT2 {
     int size; //i used this to be able to test more things (as a way to help debug and test ideas on simpler scenarios)
     ArrayList<int[]> allBoards; //all the possible size by size boards
     private Hashtable<String, String> losingTable = new Hashtable<>();; // the losing boards.
         // I used a hashtable because I know its more efficient at retrieval. I switched to strings from arrays cuz I looked thru the hashtable docs and saw it uses .equals, which doesn't work for arrays
     long currentTime; // used this to test how long specific parts/methods took
         //takes ~0.6 seconds to make at the start and doesn't noticeably lag when playing a move
-    public ArrayList<int[]> moves = new ArrayList<>(); // this stores the best move for a specific board
-        //i might change this to a hashtable that maps a board string to a move string.
-            //i think that would be more efficient for recall, but since recall is fast, im not prioritizing this
+    //public ArrayList<int[]> moves = new ArrayList<>(); // this stores the best move for a specific board
+
+    public Hashtable<String, Integer> bestMoves = new Hashtable<>(); // new way of storing moves
 
     public static void main(String[] args) {
-        MyHashtableChompv2 doCoolThings = new MyHashtableChompv2(10);
+        My2HTChomp_HT2 doCoolThings = new My2HTChomp_HT2(10);
     }
 
-    public MyHashtableChompv2(int size){
+    public My2HTChomp_HT2(int size){
         this.size = size;
 
         //this creates allBoards with all the possible boards
@@ -42,10 +42,9 @@ public class MyHashtableChompv2 {
     }
 
     private void findMove(int[] arr){
-        String concat = ""; //this is how i
+        String concat = ""; //this is how i store the array to use in the hashtables
         concat = Arrays.toString(arr);
-        int[] forMoves = new int[size+2]; //make the array that will be filled in w the board and best move
-        System.arraycopy(arr, 0, forMoves, 0, size); //put the board in the forMoves array
+        long timeTester = System.currentTimeMillis();
 
         for(int c = 0; c < size; c++){ //the nested loop checks every chip (aka every possible move)
             for(int r = 0; r < arr[c]; r++){
@@ -58,33 +57,19 @@ public class MyHashtableChompv2 {
 
                 //if ive already identified the board from this move as a losing board, this is the move i want to play
                 if(losingTable.get(move) != null){
-                    forMoves[size] = r;
-                    forMoves[size+1] = c;
-                    moves.add(forMoves);
-                    return; //since ive found a winning move, theres no reason to do anything more
+                    Integer bestMove = 100*r+c;
+
+                    bestMoves.put(concat, bestMove);
+                    return; //since ive found a winning move, there's no reason to do anything more
                 }
             }
         }
+
         //this part runs if none of the moves were losing boards --> this board is a losing board
+            //i want to play a "random" move, but keep the board complex (remove as few chips as possible (1))
 
-        //makes the board as a string
-        losingTable.put(concat, "losing");
-
-        //find a move to play that keeps a lot of chips
-
-        for (int col = 0; col < size; col++) {
-            if(arr[col] <= 1){ //this deems a move that removes chips above it as unacceptable
-                break; //bc this wont change in the future
-            }
-            if(col != size-1 && arr[col+1]==arr[col]){ //this deems a move that removes chips to the right as unacceptable
-                continue; // this can change
-            }
-
-            forMoves[size] = (arr[col]-1);
-            forMoves[size + 1] = col;
-            moves.add(forMoves);
-            return;
-        }
+        ArrayList<Integer> awesomes = new ArrayList<>();
+        ArrayList<Integer> acceptables = new ArrayList<>();
         for (int col = 0; col < size; col++) {
             if(arr[col] == 0){ //this deems a move that removes chips above it as unacceptable
                 break; //bc this wont change in the future
@@ -92,20 +77,24 @@ public class MyHashtableChompv2 {
             if(col != size-1 && arr[col+1]==arr[col]){ //this deems a move that removes chips to the right as unacceptable
                 continue; // this can change
             }
+            Integer move = 100*(arr[col]-1)+col;
 
-            forMoves[size] = (arr[col]-1);
-            forMoves[size + 1] = col;
-            moves.add(forMoves);
-            return;
-        }
-        for (int col = size - 1; col >= 0; col--) {
-            for (int row = arr[col] - 1; row >= 0; row--) {
-                forMoves[size] = row;
-                forMoves[size + 1] = col;
-                moves.add(forMoves);
-                return;
+            if(arr[col] == 0 || col == 0){ //this move is acceptable
+                acceptables.add(move);
+            }else{ // but if it doesn't remove a row/col, its awesome
+                awesomes.add(move);
             }
         }
+        if(awesomes.isEmpty()){ //if there aren't any awesome chips, ill pick an acceptable one (always acceptable chips)
+            awesomes = acceptables;
+        }
+
+//        System.out.println(concat + awesomes);
+        int index = (int) (awesomes.size()*Math.random());
+            //picks a random from 0 to awesomes.size-1
+
+        bestMoves.put(concat, awesomes.get(index)); //puts that move as the move to play
+//        System.out.println(System.currentTimeMillis() - timeTester);
     }
 
     private void findBoards(){

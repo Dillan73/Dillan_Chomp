@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class My10DChomp { //an old version that uses numBoards to use 1d arrays (but no hashtable)
+public class My10dChomp_3 { //an old version that uses numBoards to use 1d arrays (but no hashtable)
     int size;
     int[] allBoards;
     private ArrayList<int[]> loseBoards = new ArrayList<>();
@@ -10,10 +10,10 @@ public class My10DChomp { //an old version that uses numBoards to use 1d arrays 
     int numBoards = 184755;
 
     public static void main(String[] args) {
-        My10DChomp print3x3 = new My10DChomp();
+        My10dChomp_3 print3x3 = new My10dChomp_3();
     }
 
-    public My10DChomp(){
+    public My10dChomp_3(){
         this.size = 10;
         int[] baseCase = new int[size];
 

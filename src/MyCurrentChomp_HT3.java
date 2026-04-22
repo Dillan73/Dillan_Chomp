@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 
-public class MyHashtableChomp {
+public class MyCurrentChomp_HT3 {
     int size; //i used this to be able to test more things (as a way to help debug and test ideas on simpler scenarios)
     ArrayList<int[]> allBoards; //all the possible size by size boards
     private Hashtable<String, String> losingTable = new Hashtable<>();; // the losing boards.
@@ -14,10 +14,10 @@ public class MyHashtableChomp {
             //i think that would be more efficient for recall, but since recall is fast, im not prioritizing this
 
     public static void main(String[] args) {
-        MyHashtableChomp doCoolThings = new MyHashtableChomp(10);
+        MyCurrentChomp_HT3 doCoolThings = new MyCurrentChomp_HT3(10);
     }
 
-    public MyHashtableChomp(int size){
+    public MyCurrentChomp_HT3(int size){
         this.size = size;
 
         //this creates allBoards with all the possible boards
@@ -72,28 +72,31 @@ public class MyHashtableChomp {
 
         //find a move to play that keeps a lot of chips
 
-        int index = 0;
-        while(index < 10) {
-            for (int col = size - 1; col >= 0; col--) {
-                for (int row = arr[col] - 1; row >= 0; row--) {
-                    if(Math.random() >= 0.01){
-                        continue;
-                    }
-                    if(col == 0 && row == 0){
-                       if(arr[1] == 0 && arr[0] == 1){
-                           forMoves[size] = row;
-                           forMoves[size + 1] = col;
-                           moves.add(forMoves);
-                       }
-                       continue;
-                    }
-                    forMoves[size] = row;
-                    forMoves[size + 1] = col;
-                    moves.add(forMoves);
-                    return;
-                }
+        for (int col = 0; col < size; col++) {
+            if(arr[col] <= 1){ //this deems a move that removes chips above it as unacceptable
+                break; //bc this wont change in the future
             }
-            index++;
+            if(col != size-1 && arr[col+1]==arr[col]){ //this deems a move that removes chips to the right as unacceptable
+                continue; // this can change
+            }
+
+            forMoves[size] = (arr[col]-1);
+            forMoves[size + 1] = col;
+            moves.add(forMoves);
+            return;
+        }
+        for (int col = 0; col < size; col++) {
+            if(arr[col] == 0){ //this deems a move that removes chips above it as unacceptable
+                break; //bc this wont change in the future
+            }
+            if(col != size-1 && arr[col+1]==arr[col]){ //this deems a move that removes chips to the right as unacceptable
+                continue; // this can change
+            }
+
+            forMoves[size] = (arr[col]-1);
+            forMoves[size + 1] = col;
+            moves.add(forMoves);
+            return;
         }
         for (int col = size - 1; col >= 0; col--) {
             for (int row = arr[col] - 1; row >= 0; row--) {

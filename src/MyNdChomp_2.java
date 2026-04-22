@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MyNDChomp { // OLD FILE USED THAT I DONT USE ANYMORE
+public class MyNdChomp_2 { // OLD FILE USED THAT I DONT USE ANYMORE
     int size;
     int[][] allBoards;
     private ArrayList<int[]> loseBoards = new ArrayList<>();
@@ -11,10 +11,10 @@ public class MyNDChomp { // OLD FILE USED THAT I DONT USE ANYMORE
     long currentTime;
 
     public static void main(String[] args) {
-        MyNDChomp print3x3 = new MyNDChomp(10);
+        MyNdChomp_2 print3x3 = new MyNdChomp_2(10);
     }
 
-    public MyNDChomp(int size){
+    public MyNdChomp_2(int size){
         this.size = size;
         int[] baseCase = new int[size];
 

@@ -17,7 +17,7 @@ public class MyPlayer {
 
         size = 10;
 
-        MyHashtableChompv2 ChomperuskiBuski = new MyHashtableChompv2(size); //10
+        MyCurrentChomp_HT3 ChomperuskiBuski = new MyCurrentChomp_HT3(size); //10
         moves = ChomperuskiBuski.moves;
 
 //        MyChomp_FINAL chomper = new MyChomp_FINAL(size); //10
