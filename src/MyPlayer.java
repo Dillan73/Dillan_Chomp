@@ -1,30 +1,28 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 
 public class MyPlayer {
     public Chip[][] gameBoard;
     public int[] columns;
-    ArrayList<int[]> moves;
     int size;
 
+    //old:
+    ArrayList<int[]> moves;
+    //new:
+    Hashtable<String, Integer> bestMoves;
     public MyPlayer() {
         columns = new int[10];
 
         size = 10;
 
-        HashtableChomp_CURRENT ChomperuskiBuski = new HashtableChomp_CURRENT(size); //10
+        MyHashtableChompv2 ChomperuskiBuski = new MyHashtableChompv2(size); //10
         moves = ChomperuskiBuski.moves;
 
-//        My10DChomp otherChomper = new My10DChomp();
-//        allBoards = otherChomper.allBoards;
-//        movesArray = otherChomper.movesArray;
-//        numBoards = otherChomper.numBoards;
+//        MyChomp_FINAL chomper = new MyChomp_FINAL(size); //10
+//        bestMoves = chomper.bestMoves;
 
-        /***
-         * This code will run just once, when the game opens.
-         * Add your code here.
-         */
     }
 
     public Point move(Chip[][] pBoard) {
@@ -34,12 +32,6 @@ public class MyPlayer {
         gameBoard = pBoard;
         int column = 1;
         int row = 1;
-
-        /***
-         * This code will run each time the "MyPlayer" button is pressed.
-         * Add your code to return the row and the column of the chip you want to take.
-         * You'll be returning a data type called Point which consists of two integers.
-         */
 
         for(int c = 0; c < 10; c++){
             int chips = 0;
@@ -59,23 +51,20 @@ public class MyPlayer {
                 return new Point(arr[10], arr[11]); //play the move found as the "best move"
             }
         }
-//
-//        for(int i = 0; i < numBoards; i++){
-//            boolean found = true;
-//            for(int j = 0; j < 10; j++){
-//                if(allBoards[i*10+j] != columns[j]){
-//                    found = false;
-//                    break;
-//                }
-//            }
-//            if(found){
-//                return new Point(movesArray[2*i], movesArray[2*i+1]);
-//            }
+
+//        String currStateString = Arrays.toString(columns);
+//        Integer best = bestMoves.get(currStateString);
+//        if(best == null){
+//            System.out.println("Null with: " + currStateString);
+//        }else{
+//            System.out.println("My player has moved");
+//            row = best % 100;
+//            column = best/100;
+//            return new Point(row, column);
 //        }
 
-        Point myMove = new Point(row, column);
         System.out.println("My player has moved");
-        return myMove;
+        return new Point(0, 0);
     }
 
 }
