@@ -48,8 +48,7 @@ public class MyPlayer {
 
                 //track the time it took to find the move. Then, return the move.
                 long timeTaken = System.currentTimeMillis()-timeTracker;
-                System.out.println("My player moved. It took " + timeTaken + " ms.");
-                System.out.println("You there! Hurry up please!!! I'm getting bored...");
+                System.out.println("My player moved. Unlike you, it took " + timeTaken + " ms."); //very vital mind games
                 return new Point(move/100, move%100); //play the move found as the "best move"
             }
         }
