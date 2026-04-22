@@ -26,7 +26,7 @@ public class HashtableChomp_CURRENT {
         //this creates moves (aka finds the best move for each board)
             findBestMoves();
 
-        System.out.println(losingTable.size());
+        //System.out.println(losingTable.size());
     }
 
     private void findBestMoves(){
