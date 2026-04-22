@@ -15,6 +15,8 @@ public class MyChomp_FINAL { //my chomp solver thingy
 
     public int[] bestMoves; //this now stores the best moves as an int in an array
         //similar to 10d version, but has nothing hardcoded to do it
+        //the time for retrieval is already small enough that its not worth rly optimizing
+            //also, if this was a hashtable, this part takes like a full 2ish seconds
 
     boolean optimize = false;
 
