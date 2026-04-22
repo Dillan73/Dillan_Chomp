@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 
-public class MyTESTChomp_HT4 { //my current version
+public class MyChomp_FINAL { //my current version
 
     int size; //i used this to be able to test more things (as a way to help debug and test ideas on simpler scenarios)
     ArrayList<int[]> allBoards; //all the possible size by size boards
@@ -11,15 +11,14 @@ public class MyTESTChomp_HT4 { //my current version
     long currentTime; // used this to test how long specific parts/methods took
         //takes ~0.6 seconds to make at the start and doesn't noticeably lag when playing a move
 
-    public ArrayList<int[]> moves = new ArrayList<>(); // this stores the best move for a specific board
-        //i might change this to a hashtable that maps a board string to a move string.
-            //i think that would be more efficient for recall, but since recall is fast, im not prioritizing this
+    public int[] bestMoves; //this now stores the best moves as an int in an array
+        //similar to 10d version, but has nothing hardcoded to do it
 
     public static void main(String[] args) {
-        MyTESTChomp_HT4 doCoolThings = new MyTESTChomp_HT4(10);
+        MyChomp_FINAL doCoolThings = new MyChomp_FINAL(10);
     }
 
-    public MyTESTChomp_HT4(int size){
+    public MyChomp_FINAL(int size){
         this.size = size;
 
         //this creates allBoards with all the possible boards
@@ -35,19 +34,20 @@ public class MyTESTChomp_HT4 { //my current version
         long timeTaken = System.currentTimeMillis() - currentTime;
         System.out.println("Find the boards took " + timeTaken + " ms. Finding the best move for each board...");
 
-        for(int[] arr : allBoards){
-            findMove(arr); // goes thru each board in order it was made (this way its always already checked if a possible move is losing
+        bestMoves = new int[allBoards.size()];
+
+        for(int index = 0; index < allBoards.size(); index++){
+            findMove(allBoards.get(index), index); // goes thru each board in order it was made (this way its always already checked if a possible move is losing
         }
 
         timeTaken = System.currentTimeMillis()-currentTime;
         System.out.println("I'm done. My process took " + timeTaken + " ms.");
     }
 
-    private void findMove(int[] arr){
-        String concat = ""; //this is how i
-        concat = Arrays.toString(arr);
-        int[] forMoves = new int[size+2]; //make the array that will be filled in w the board and best move
-        System.arraycopy(arr, 0, forMoves, 0, size); //put the board in the forMoves array
+    private void findMove(int[] arr, int index){
+        String concat = Arrays.toString(arr);
+
+        int move = 0;
 
         for(int c = 0; c < size; c++){ //the nested loop checks every chip (aka every possible move)
             for(int r = 0; r < arr[c]; r++){
@@ -56,13 +56,12 @@ public class MyTESTChomp_HT4 { //my current version
                 for(int curr = c; curr < size; curr++){
                     postMove[curr] = Math.min(postMove[curr], r);
                 } //makes the board if this move was played
-                String move = Arrays.toString(postMove); //converts the board of the move as a string
+                String moveString = Arrays.toString(postMove); //converts the board of the move as a string
 
                 //if ive already identified the board from this move as a losing board, this is the move i want to play
-                if(losingTable.get(move) != null){
-                    forMoves[size] = r;
-                    forMoves[size+1] = c;
-                    moves.add(forMoves);
+                if(losingTable.get(moveString) != null){
+                    move = r*100+c;
+                    bestMoves[index] = move;
                     return; //since ive found a winning move, theres no reason to do anything more
                 }
             }
@@ -74,38 +73,43 @@ public class MyTESTChomp_HT4 { //my current version
 
         //find a move to play that keeps a lot of chips
 
-        for (int col = 0; col < size; col++) {
-            if(arr[col] <= 1){ //this deems a move that removes chips above it as unacceptable
+        for (int col = 0; col < size; col++) { //try to find a move that removes 1 chip and no edge chip (row/col)
+            if(arr[col] <= 1){
                 break; //bc this wont change in the future
             }
-            if(col != size-1 && arr[col+1]==arr[col]){ //this deems a move that removes chips to the right as unacceptable
+            if(col != size-1 && arr[col+1]==arr[col]){
                 continue; // this can change
             }
 
-            forMoves[size] = (arr[col]-1);
-            forMoves[size + 1] = col;
-            moves.add(forMoves);
+            move = 100*(arr[col]-1)+col;
+            if(bestMoves[index] == 0){
+                bestMoves[index] = move;
+            }else{
+                if(Math.random()<0.35){
+                    bestMoves[index] = move;
+                }
+            }
+
+        }
+        if(bestMoves[index] != 0){
             return;
         }
+
         for (int col = 0; col < size; col++) {
-            if(arr[col] == 0){ //this deems a move that removes chips above it as unacceptable
+            if (arr[col] == 0) { //this deems a move that removes chips above it as unacceptable
                 break; //bc this wont change in the future
             }
-            if(col != size-1 && arr[col+1]==arr[col]){ //this deems a move that removes chips to the right as unacceptable
+            if (col != size - 1 && arr[col + 1] == arr[col]) { //this deems a move that removes chips to the right as unacceptable
                 continue; // this can change
             }
 
-            forMoves[size] = (arr[col]-1);
-            forMoves[size + 1] = col;
-            moves.add(forMoves);
-            return;
-        }
-        for (int col = size - 1; col >= 0; col--) {
-            for (int row = arr[col] - 1; row >= 0; row--) {
-                forMoves[size] = row;
-                forMoves[size + 1] = col;
-                moves.add(forMoves);
-                return;
+            move = 100*(arr[col]-1)+col;
+            if (bestMoves[index] == 0) {
+                bestMoves[index] = move;
+            } else {
+                if (Math.random() < 0.35) {
+                    bestMoves[index] = move;
+                }
             }
         }
     }

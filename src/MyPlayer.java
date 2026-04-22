@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Hashtable;
 
 public class MyPlayer {
     public Chip[][] gameBoard;
@@ -11,17 +10,19 @@ public class MyPlayer {
     //old:
     ArrayList<int[]> moves;
     //new:
-    Hashtable<String, Integer> bestMoves;
+    int[] bestMoves;
+    ArrayList<int[]> allBoards;
     public MyPlayer() {
         columns = new int[10];
 
         size = 10;
 
-        MyCurrentChomp_HT3 ChomperuskiBuski = new MyCurrentChomp_HT3(size); //10
-        moves = ChomperuskiBuski.moves;
+//        MyUnifiedChomp_HT3 ChomperuskiBuski = new MyUnifiedChomp_HT3(size); //10
+//        moves = ChomperuskiBuski.moves;
 
-//        MyChomp_FINAL chomper = new MyChomp_FINAL(size); //10
-//        bestMoves = chomper.bestMoves;
+        MyChomp_FINAL chomper = new MyChomp_FINAL(size); //10
+        bestMoves = chomper.bestMoves;
+        allBoards = chomper.allBoards;
 
     }
 
@@ -45,10 +46,17 @@ public class MyPlayer {
             columns[c] = chips;
         }
 
-        for(int[] arr : moves){
-            int[] concat = Arrays.copyOf(arr, 10); //look at the board part of the move array
-            if(Arrays.equals(concat, columns)){ //if this is the array for the current board:
-                return new Point(arr[10], arr[11]); //play the move found as the "best move"
+//        for(int[] arr : moves){
+//            int[] concat = Arrays.copyOf(arr, 10); //look at the board part of the move array
+//            if(Arrays.equals(concat, columns)){ //if this is the array for the current board:
+//                return new Point(arr[10], arr[11]); //play the move found as the "best move"
+//            }
+//        }
+
+        for(int i = 0; i < allBoards.size(); i++){
+            if(Arrays.equals(allBoards.get(i), columns)){//if this is the array for the current board:
+                int move = bestMoves[i];
+                return new Point(move/100, move%100); //play the move found as the "best move"
             }
         }
 

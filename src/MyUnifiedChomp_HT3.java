@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 
-public class MyCurrentChomp_HT3 { //my current version
+public class MyUnifiedChomp_HT3 { //my current version
 
     int size; //i used this to be able to test more things (as a way to help debug and test ideas on simpler scenarios)
     ArrayList<int[]> allBoards; //all the possible size by size boards
@@ -16,10 +16,10 @@ public class MyCurrentChomp_HT3 { //my current version
             //i think that would be more efficient for recall, but since recall is fast, im not prioritizing this
 
     public static void main(String[] args) {
-        MyCurrentChomp_HT3 doCoolThings = new MyCurrentChomp_HT3(10);
+        MyUnifiedChomp_HT3 doCoolThings = new MyUnifiedChomp_HT3(10);
     }
 
-    public MyCurrentChomp_HT3(int size){
+    public MyUnifiedChomp_HT3(int size){
         this.size = size;
 
         //this creates allBoards with all the possible boards
