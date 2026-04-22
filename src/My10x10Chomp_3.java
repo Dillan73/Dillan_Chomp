@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class My10dChomp_3 { //old version that tried to utilize the number of boards (using a 1d array)
+public class My10x10Chomp_3 { //old version that tried to utilize the number of boards (using a 1d array)
     int size;
     int[] allBoards;
     private ArrayList<int[]> loseBoards = new ArrayList<>();
@@ -10,10 +10,10 @@ public class My10dChomp_3 { //old version that tried to utilize the number of bo
     int numBoards = 184755;
 
     public static void main(String[] args) {
-        My10dChomp_3 print3x3 = new My10dChomp_3();
+        My10x10Chomp_3 print3x3 = new My10x10Chomp_3();
     }
 
-    public My10dChomp_3(){
+    public My10x10Chomp_3(){
         this.size = 10;
         int[] baseCase = new int[size];
 

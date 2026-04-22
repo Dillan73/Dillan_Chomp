@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-public class My3dChomp_1 { //old 3x3 code that is close to hard coded
+public class My3x3Chomp_1 { //old 3x3 code that is close to hard coded
     int size;
     int[][] allBoards;
     public static void main(String[] args) {
-        My3dChomp_1 print3x3 = new My3dChomp_1(3);
+        My3x3Chomp_1 print3x3 = new My3x3Chomp_1(3);
     }
     ArrayList<int[]> loseBoards = new ArrayList<>();
     ArrayList<int[]> winBoards = new ArrayList<>();
@@ -15,7 +15,7 @@ public class My3dChomp_1 { //old 3x3 code that is close to hard coded
     //have 3 values to show how many are left in each row (bottom is shown first)
         //0<=r0<=r1<=r2<=3 and r0<3.
 
-    public My3dChomp_1(int size){
+    public My3x3Chomp_1(int size){
         this.size = size;
         int[] base = {1,0,0};
         loseBoards.add(base);

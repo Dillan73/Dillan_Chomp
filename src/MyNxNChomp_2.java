@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MyNdChomp_2 { // old version that brought 3x3 to NxN
+public class MyNxNChomp_2 { // old version that brought 3x3 to NxN
     int size;
     int[][] allBoards;
     private ArrayList<int[]> loseBoards = new ArrayList<>();
@@ -11,10 +11,10 @@ public class MyNdChomp_2 { // old version that brought 3x3 to NxN
     long currentTime;
 
     public static void main(String[] args) {
-        MyNdChomp_2 print3x3 = new MyNdChomp_2(10);
+        MyNxNChomp_2 print3x3 = new MyNxNChomp_2(10);
     }
 
-    public MyNdChomp_2(int size){
+    public MyNxNChomp_2(int size){
         this.size = size;
         int[] baseCase = new int[size];
 
